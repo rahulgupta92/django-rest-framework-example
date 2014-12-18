@@ -16,28 +16,26 @@
 # from rest_framework.response import Response
 # from rest_framework import status
 
+# from snippets.models import Snippet
+# from snippets.serializers import SnippetSerializer
+# from rest_framework import mixins
+# from rest_framework import generics
+
 from snippets.models import Snippet
 from snippets.serializers import SnippetSerializer
-from rest_framework import mixins
 from rest_framework import generics
 
 
-class SnippetList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+class SnippetList(generics.ListCreateAPIView):
     """
-    List all Snippets or create a new snippet
+    List all snippets or create a new snippet
     """
 
     queryset = Snippet.objects.all()
-    serializer_class  = SnippetSerializer
-
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+    serializer_class = SnippetSerializer
 
 
-class SnippetDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve, update or delete a snippet
     """
@@ -45,18 +43,41 @@ class SnippetDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.D
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.delete(request, *args, **kwargs)
 
 
 
 
+# class SnippetList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+#     """
+#     List all Snippets or create a new snippet
+#     """
+
+#     queryset = Snippet.objects.all()
+#     serializer_class  = SnippetSerializer
+
+#     def get(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
+
+#     def post(self, request, *args, **kwargs):
+#         return self.create(request, *args, **kwargs)
+
+
+# class SnippetDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+#     """
+#     Retrieve, update or delete a snippet
+#     """
+
+#     queryset = Snippet.objects.all()
+#     serializer_class = SnippetSerializer
+
+#     def get(self, request, *args, **kwargs):
+#         return self.retrieve(request, *args, **kwargs)
+
+#     def put(self, request, *args, **kwargs):
+#         return self.update(request, *args, **kwargs)
+
+#     def delete(self, request, *args, **kwargs):
+#         return self.delete(request, *args, **kwargs)
 
 
 
